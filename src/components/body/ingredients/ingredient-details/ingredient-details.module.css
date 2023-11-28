@@ -1,0 +1,29 @@
+.image {
+    composes: mb-4 mr-25 ml-25 from global;
+}
+
+.name {
+    composes: text text_type_main-medium from global;
+    text-align: center;
+}
+
+.data {
+    composes: mt-4 mb-15 mr-25 ml-25 from global;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.item_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.item_text {
+    composes: mb-4 text text_type_main-default text_color_inactive from global;
+}
+
+.item_number {
+    composes: text text_type_digits-default text_color_inactive from global;
+    text-align: center;
+}

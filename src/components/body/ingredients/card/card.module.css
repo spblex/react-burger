@@ -1,0 +1,42 @@
+.main {
+    composes: mt-6 mb-2 ml-4 mr-2 from global;
+    flex-direction: column;
+    width: min-content;
+    position: relative;
+}
+
+.counter {
+    composes: m-1 from global;
+}
+
+.visible {
+
+}
+
+.hidden {
+
+}
+
+.image {
+    composes: mr-4 ml-4 from global;
+}
+
+.price {
+    composes: mt-1 mb-1 from global;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.price_text {
+    composes: text text_type_digits-default mr-1 from global;
+}
+
+.name {
+    composes: ext text_type_main-small from global;
+    margin: 0px;
+    text-align: center;
+    width: -webkit-fill-available;
+}

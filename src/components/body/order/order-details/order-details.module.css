@@ -1,0 +1,27 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.identity_number {
+    composes: text text_type_digits-large mr-25 ml-25 from global;
+}
+
+.identity_text {
+    composes: text text_type_main-medium mt-8 from global;
+}
+
+.image {
+    composes: mt-15 mb-15 from global;
+    width: 100px;
+    height: 100px;
+}
+
+.readiness_text {
+    composes: text text_type_main-small mb-2 from global;
+}
+.target_text {
+    composes: text text_type_main-small text_color_inactive mb-30 from global;
+}

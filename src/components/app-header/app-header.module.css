@@ -1,0 +1,64 @@
+.main_area {
+    composes: flex_center from global;
+    background-color: var(--background);
+}
+
+.content {
+    composes: pt-4 pb-4 from global;
+    width: var(--content-width);
+    display: flex;
+    height: 100%;
+    position: relative;
+}
+
+.nav {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    border-radius: var(--common-border-radius-s);
+    cursor: pointer;
+}
+
+.button_constructor {
+    composes: container;
+}
+
+.button_orders {
+    composes: container;
+    composes: ml-2 from global;
+}
+
+.button_settings {
+    composes: container;
+    margin-left: auto !important;
+}
+
+.button_icon {
+    composes: ml-5 mr-2 mt-4 mb-4 from global;
+}
+
+.button_text {
+    composes: text text_type_main-default mr-4 from global;
+    align-self: center;
+}
+
+.button_inactive_text {
+    composes: button_text;
+    composes: text_color_inactive from global;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%)
+}
