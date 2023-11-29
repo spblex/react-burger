@@ -14,7 +14,12 @@ export default function App() {
     useEffect(() => {
         const getIngredients = async () => {
             fetch(process.env.REACT_APP_INGREDIENTS_URI)
-                .then(res => res.json())
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    return Promise.reject(`Ошибка ${res.status}`);
+                })
                 .then(data => setState(data))
                 .catch(e => {
                     setState({...state, success: false, error: e});

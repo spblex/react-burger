@@ -4,7 +4,7 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-devel
 
 export default function AppHeader() {
     return (
-        <div className={style.main_area}>
+        <header className={style.main_area}>
             <div className={style.content}>
                 <nav className={style.nav}>
                     <div className={style.button_constructor}>
@@ -30,6 +30,6 @@ export default function AppHeader() {
                     <Logo />
                 </div>
             </div>
-        </div>
+        </header>
     );
 }

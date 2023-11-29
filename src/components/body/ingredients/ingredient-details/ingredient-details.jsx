@@ -4,7 +4,7 @@ import ingredientsTypes from "../../../../utils/types";
 export default function IngredientDetails ({ingredient}) {
     return (
         <>
-            <img className={style.image} src={ingredient.image_large} alt=""/>
+            <img className={style.image} src={ingredient.image_large} alt="Ингредиент."/>
             <p className={style.name}>{ingredient.name}</p>
             <div className={style.data}>
                 <div className={style.item_container}>

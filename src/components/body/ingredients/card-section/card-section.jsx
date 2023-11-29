@@ -11,9 +11,9 @@ export default function CardSection ({title, ingredients, onSelectIngredient}) {
             <p className={style.title}>{title}</p>
             <div className={style.main} >
             {
-                ingredients.map((item, index) => {
+                ingredients.map((item) => {
                     return (
-                        <Card key={index} ingredient={item} onSelectIngredient={onSelectIngredient}/>
+                        <Card key={item._id} ingredient={item} onSelectIngredient={onSelectIngredient}/>
                     )
                 })
             }

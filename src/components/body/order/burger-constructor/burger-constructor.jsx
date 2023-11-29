@@ -1,13 +1,14 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import style from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../../dialog/modal/modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
 import ingredientsTypes from "../../../../utils/types";
+import {useModal} from "../../../../hooks/useModal";
 
 export default function BurgerConstructor ({ingredients}) {
-    const [isModalOpened, setIsModalOpened] = useState(false);
+    const {isModalOpen, openModal, closeModal} = useModal();
 
     const {bun, nonBuns} = useMemo(() => {
         return {
@@ -64,13 +65,13 @@ export default function BurgerConstructor ({ingredients}) {
             <div className={style.order}>
                 <p className={style.sum}>{sum.price}</p>
                 <CurrencyIcon type="primary" />
-                <Button htmlType="button" type="primary" size="medium" extraClass={style.button} onClick={() => { setIsModalOpened(true) }}>
+                <Button htmlType="button" type="primary" size="medium" extraClass={style.button} onClick={openModal}>
                     Оформить заказ
                 </Button>
             </div>
             {
-                isModalOpened && (
-                    <Modal onClose={() => {setIsModalOpened(false)}}>
+                isModalOpen && (
+                    <Modal onClose={closeModal}>
                         <OrderDetails identifier="034536"/>
                     </Modal>
                 )

@@ -18,7 +18,7 @@ export default function Card ({ingredient, onSelectIngredient}) {
                     <Counter count={1} size="default" extraClass={style.counter}/>
                 )
             }
-            <img className={style.image} src={ingredient.image} alt=""/>
+            <img className={style.image} src={ingredient.image} alt="Ингредиент."/>
             <div className={style.price}>
                 <p className={style.price_text}>{ingredient.price}</p>
                 <CurrencyIcon type="primary" />
