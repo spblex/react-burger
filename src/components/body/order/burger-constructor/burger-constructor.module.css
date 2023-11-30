@@ -1,0 +1,70 @@
+.main {
+    composes: mt-25 from global;
+    margin-left: var(--panel-padding-inside);
+    margin-right: var(--panel-padding-outside);
+    width: var(--panel-width);
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    composes: mb-4 ml-4 mr-4 from global;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: -webkit-fill-available;
+}
+
+.item_top {
+    composes: mb-2 from global;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: -webkit-fill-available;
+    margin-left: 38px;
+    margin-right: 28px;
+}
+
+.item_bottom {
+    composes: mt-2 ml-8 mr-8 from global;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: -webkit-fill-available;
+    margin-left: 38px;
+    margin-right: 28px;
+}
+
+.item_element {
+    max-width: -webkit-fill-available;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    composes: custom-scroll from global;
+    overflow-y: auto;
+    margin: 0px;
+    padding: 0px;
+}
+
+.order {
+    composes: mt-10 mb-10 mr-4 from global;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+.sum {
+    composes: text text_type_digits-medium mr-1 from global;
+}
+
+.button {
+    composes: ml-10 from global;
+}

@@ -1,0 +1,9 @@
+.view {
+    composes: flex_center from global;
+}
+
+.content {
+    composes: flex_center from global;
+    width: var(--content-width);
+    height: calc(100vh - 120px);
+}
