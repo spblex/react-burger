@@ -7,6 +7,8 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import ingredientsTypes from "../../../../utils/types";
 
+const SCROLL_OFFSET = 10;
+
 export default function BurgerIngredients ({ingredients}) {
     const [currentTab, setCurrentTab] = useState('buns');
     const [selectedIngredient, setSelectedIngredient] = useState(null);
@@ -27,26 +29,26 @@ export default function BurgerIngredients ({ingredients}) {
         }, []
     )
 
-    const scrollToSection = (ref) => {
+    const scrollToSection = useCallback((ref) => {
         ref.current?.scrollIntoView({
             behavior: "smooth"
         });
-    }
+    }, []);
 
-    const onTabClick = ({tab, ref}) => {
-      setCurrentTab(tab);
-      scrollToSection(ref);
-    };
+    const onTabClick = useCallback(({tab, ref}) => {
+        setCurrentTab(tab);
+        scrollToSection(ref);
+    }, []);
 
-    const onSectionScroll = (e) => {
+    const onSectionScroll = useCallback((e) => {
         const {top} = e.currentTarget.getBoundingClientRect();
         [bunsRef, saucesRef, mainsRef].forEach((section) => {
             const {top: sectionTop, bottom: sectionBottom} = section.current.getBoundingClientRect();
-            if (sectionTop - top <= 0 && sectionBottom - top > 0) {
+            if (sectionTop - top - SCROLL_OFFSET <= 0 && sectionBottom - top > 0) {
                 setCurrentTab(section.current.title);
             }
         });
-    };
+    }, []);
 
     return (
         <div className={style.main}>
