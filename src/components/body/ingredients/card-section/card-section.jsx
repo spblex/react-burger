@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import style from './card-section.module.css';
 import Card from "../card/card";
 import PropTypes from "prop-types";
 import ingredientsTypes from "../../../../utils/types";
 
-export default function CardSection ({title, ingredients, onSelectIngredient}) {
+const CardSection = forwardRef((props, ref) => {
+    const {title, name, ingredients, onSelectIngredient} = props;
 
     return (
-        <div>
+        <div ref={ref} title={name}>
             <p className={style.title}>{title}</p>
             <div className={style.main} >
             {
@@ -20,7 +21,9 @@ export default function CardSection ({title, ingredients, onSelectIngredient}) {
             </div>
         </div>
     )
-}
+});
+
+export default CardSection;
 
 CardSection.propTypes = {
     title: PropTypes.string.isRequired,
