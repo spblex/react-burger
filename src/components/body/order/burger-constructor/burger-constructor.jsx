@@ -1,21 +1,17 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import style from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../../dialog/modal/modal";
 import OrderDetails from "../order-details/order-details";
-import PropTypes from "prop-types";
-import ingredientsTypes from "../../../../utils/types";
 import {useModal} from "../../../../hooks/useModal";
+import {useSelector} from "react-redux";
+import {extractBuns, extractNonBuns} from "../../../../services/selectors";
 
-export default function BurgerConstructor ({ingredients}) {
+export default function BurgerConstructor () {
+    const {data: ingredients} = useSelector(store => store.ingredients);
+    const bun = useSelector(extractBuns);
+    const nonBuns = useSelector(extractNonBuns);
     const {isModalOpen, openModal, closeModal} = useModal();
-
-    const {bun, nonBuns} = useMemo(() => {
-        return {
-            bun: ingredients.find(item => item.type === 'bun'),
-            nonBuns: ingredients.filter(item => item.type !== 'bun')
-        };
-    }, [ingredients]);
 
     const {sum} = React.useMemo(() => {
         return {
@@ -78,8 +74,4 @@ export default function BurgerConstructor ({ingredients}) {
             }
         </div>
     );
-}
-
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired).isRequired
 }

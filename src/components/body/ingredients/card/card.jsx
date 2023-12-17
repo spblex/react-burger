@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import style from './card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import ingredientsTypes from "../../../../utils/types";
+import {useDispatch} from "react-redux";
+import {selectIngredient} from "../../../../services/burger-ingredients";
 
-export default function Card ({ingredient, onSelectIngredient}) {
+export default function Card ({ingredient}) {
+    const dispatch = useDispatch();
 
-    const onClick = () => {
-        onSelectIngredient(ingredient);
-    }
+    const onClick = useCallback(() => {
+        dispatch(selectIngredient(ingredient));
+    }, [dispatch, ingredient]);
 
     return (
         <div className={style.main} onClick={onClick}>
@@ -26,9 +27,4 @@ export default function Card ({ingredient, onSelectIngredient}) {
             <p className={style.name}>{ingredient.name}</p>
         </div>
     )
-}
-
-Card.propTypes = {
-    ingredient: ingredientsTypes.isRequired,
-    onSelectIngredient: PropTypes.func.isRequired
 }

@@ -2,10 +2,12 @@ import React, {forwardRef} from 'react';
 import style from './card-section.module.css';
 import Card from "../card/card";
 import PropTypes from "prop-types";
-import ingredientsTypes from "../../../../utils/types";
+import {useSelector} from "react-redux";
+import {extractIngredientsByType} from "../../../../services/selectors";
 
 const CardSection = forwardRef((props, ref) => {
-    const {title, name, ingredients, onSelectIngredient} = props;
+    const {title, name} = props;
+    const {[name]: ingredients} = useSelector(extractIngredientsByType);
 
     return (
         <div ref={ref} title={name}>
@@ -14,7 +16,7 @@ const CardSection = forwardRef((props, ref) => {
             {
                 ingredients.map((item) => {
                     return (
-                        <Card key={item._id} ingredient={item} onSelectIngredient={onSelectIngredient}/>
+                        <Card key={item._id} ingredient={item}/>
                     )
                 })
             }
@@ -27,6 +29,5 @@ export default CardSection;
 
 CardSection.propTypes = {
     title: PropTypes.string.isRequired,
-    ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired).isRequired,
-    onSelectIngredient: PropTypes.func.isRequired
+    name: PropTypes.string.isRequired
 }
