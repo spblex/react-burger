@@ -2,7 +2,7 @@ import style from './ingredient-details.module.css';
 import {useSelector} from "react-redux";
 
 export default function IngredientDetails () {
-    const {selectedIngredient: ingredient} = useSelector(store => store.ingredients);
+    const {selectedIngredient: ingredient} = useSelector(store => store.details);
     return (
         <>
             <img className={style.image} src={ingredient.image_large} alt="Ингредиент."/>

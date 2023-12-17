@@ -5,13 +5,13 @@ import CardSection from "../card-section/card-section";
 import Modal from "../../../dialog/modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
-import {selectIngredient} from "../../../../services/burger-ingredients";
+import {selectIngredient} from "../../../../services/ingredient-details";
 
 
 const SCROLL_OFFSET = 10;
 
 export default function BurgerIngredients () {
-    const {selectedIngredient} = useSelector(store => store.ingredients);
+    const {selectedIngredient} = useSelector(store => store.details);
     const dispatch = useDispatch();
     const [currentTab, setCurrentTab] = useState('buns');
     const bunsRef = useRef(null);

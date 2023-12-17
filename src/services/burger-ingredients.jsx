@@ -7,13 +7,7 @@ const ingredientsSlice = createSlice({
         data: [],
         loading: false,
         success: false,
-        error: null,
-        selectedIngredient: null
-    },
-    reducers: {
-        selectIngredient(state, action) {
-            state.selectedIngredient = action.payload;
-        }
+        error: null
     },
     extraReducers: (builder) => {
         builder
@@ -36,4 +30,3 @@ const ingredientsSlice = createSlice({
 });
 
 export const ingredientsReducer = ingredientsSlice.reducer;
-export const {selectIngredient} = ingredientsSlice.actions;

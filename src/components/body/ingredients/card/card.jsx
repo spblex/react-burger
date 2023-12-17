@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import style from './card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch} from "react-redux";
-import {selectIngredient} from "../../../../services/burger-ingredients";
+import {selectIngredient} from "../../../../services/ingredient-details";
 
 export default function Card ({ingredient}) {
     const dispatch = useDispatch();
