@@ -38,5 +38,5 @@
     composes: ext text_type_main-small from global;
     margin: 0px;
     text-align: center;
-    width: -webkit-fill-available;
+    width: 100%;
 }

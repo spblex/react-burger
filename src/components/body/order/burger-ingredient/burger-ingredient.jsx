@@ -31,7 +31,6 @@ export default function BurgerIngredient({item, index}) {
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
-                extraClass={style.item_element}
                 handleClose={() => deleteCard(index)}
             />
         </div>

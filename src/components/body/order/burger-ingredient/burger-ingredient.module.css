@@ -1,11 +1,7 @@
-.item_element {
-    max-width: -webkit-fill-available;
-}
-
 .item {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: -webkit-fill-available;
+    width: 100%;
 }

@@ -23,7 +23,7 @@ const burgerIngredientsSlice = createSlice({
             })
             .addCase(loadIngredients.fulfilled, (state, action) => {
                 state.loading = false;
-                state.success = action.payload && action.payload.success;
+                state.success = action.payload && action.payload?.success;
                 state.data = action.payload?.data;
             })
     }

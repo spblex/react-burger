@@ -13,7 +13,23 @@ export const loadIngredients = createAsyncThunk(
         return await fetch(process.env.REACT_APP_INGREDIENTS_URI)
             .then(getResponse)
             .catch(e => {
-                thunkAPI.rejectWithValue(e.message);
+                return thunkAPI.rejectWithValue(e.message);
+            });
+    }
+);
+
+export const makeOrder = createAsyncThunk(
+    'order/make',
+    async (payload,thunkAPI) => {
+        const data = JSON.stringify({ ingredients: payload });
+        return await fetch(process.env.REACT_APP_ORDER_URI, {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: data
+        })
+            .then(getResponse)
+            .catch(e => {
+                return thunkAPI.rejectWithValue(e);
             });
     }
 );

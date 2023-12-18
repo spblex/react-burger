@@ -6,13 +6,16 @@ import OrderDetails from "../order-details/order-details";
 import {useModal} from "../../../../hooks/useModal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addBun, addIngredient, moveIngredient} from "../../../../services/burger-constructor";
+import {addBun, addIngredient, clearIngredients, moveIngredient} from "../../../../services/burger-constructor";
 import {calculateIngredientSum} from "../../../../services/selectors";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
+import {makeOrder} from "../../../../utils/api-service";
+import {clearOrder} from "../../../../services/order-details";
 
 export default function BurgerConstructor () {
     const dispatch = useDispatch();
-    const {bun, ingredients} = useSelector(store => store.burger)
+    const {bun, ingredients} = useSelector(store => store.burger);
+    const {success, loading} = useSelector(store => store.order);
     const sum = useSelector(calculateIngredientSum);
     const {isModalOpen, openModal, closeModal} = useModal();
     const nonBunsRef = useRef();
@@ -65,49 +68,70 @@ export default function BurgerConstructor () {
         })
     });
 
+    const onOrderClick = useCallback(() => {
+        if (!success && !loading && bun && ingredients.length > 0) {
+            let order = [bun._id];
+            ingredients.forEach((item) => order.push(item._id));
+            order.push(bun._id);
+            dispatch(makeOrder(order));
+        }
+        openModal();
+    }, [success, loading, dispatch, bun, ingredients, openModal]);
+
+    const onCloseModal = useCallback(() => {
+       if (success) {
+           dispatch(clearIngredients());
+           dispatch(clearOrder());
+       }
+       closeModal();
+    }, [success, closeModal, dispatch]);
+
     return (
         <div className={isHover ? style.dragging_container : style.main} ref={dropTarget}>
-                <div className={style.item_top}>
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text={`${bun?.name} (верх)`}
-                        price={bun?.price}
-                        thumbnail={bun?.image}
-                        extraClass={bun ? style.item_element : style.empty_element}
-                    />
-                </div>
-                <ul className={style.ingredients} ref={nonBunsRef}>
-                    {ingredients.map((item, index) => {
-                        return (
-                            <li className={style.item} key={index}>
-                                <BurgerIngredient item={item} index={index}/>
-                            </li>
-                        );
-                    })}
-                </ul>
-                <div className={style.item_bottom}>
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text={`${bun?.name} (низ)`}
-                        price={bun?.price}
-                        thumbnail={bun?.image}
-                        extraClass={bun ? style.item_element : style.empty_element}
-                    />
-                </div>
+            <div className={style.top_container}>
+
+            </div>
+            <div className={style.item_top}>
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text={`${bun?.name} (верх)`}
+                    price={bun?.price}
+                    thumbnail={bun?.image}
+                    extraClass={bun ? style.item_element : style.empty_element}
+                />
+            </div>
+            <ul className={style.ingredients} ref={nonBunsRef}>
+                {ingredients.map((item, index) => {
+                    return (
+                        <li className={style.item} key={index}>
+                            <BurgerIngredient item={item} index={index}/>
+                        </li>
+                    );
+                })}
+            </ul>
+            <div className={style.item_bottom}>
+                <ConstructorElement
+                    type="bottom"
+                    isLocked={true}
+                    text={`${bun?.name} (низ)`}
+                    price={bun?.price}
+                    thumbnail={bun?.image}
+                    extraClass={bun ? style.item_element : style.empty_element}
+                />
+            </div>
 
             <div className={style.order}>
                 <p className={style.sum}>{sum}</p>
                 <CurrencyIcon type="primary" />
-                <Button htmlType="button" type="primary" size="medium" extraClass={style.button} onClick={openModal}>
+                <Button htmlType="button" type="primary" size="medium" extraClass={style.button} onClick={onOrderClick}>
                     Оформить заказ
                 </Button>
             </div>
             {
                 isModalOpen && (
-                    <Modal onClose={closeModal}>
-                        <OrderDetails identifier="034536"/>
+                    <Modal onClose={onCloseModal}>
+                        <OrderDetails/>
                     </Modal>
                 )
             }
