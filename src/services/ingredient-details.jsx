@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const detailsSlice = createSlice({
+const ingredientDetailsSlice = createSlice({
     name: 'details',
     initialState: {
         selectedIngredient: null
@@ -12,5 +12,5 @@ const detailsSlice = createSlice({
     }
 });
 
-export const detailsReducer = detailsSlice.reducer;
-export const {selectIngredient} = detailsSlice.actions;
+export const ingredientDetailsReducer = ingredientDetailsSlice.reducer;
+export const {selectIngredient} = ingredientDetailsSlice.actions;

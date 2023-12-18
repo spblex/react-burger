@@ -1,7 +1,7 @@
 import { loadIngredients } from "../utils/api-service";
 import { createSlice } from "@reduxjs/toolkit";
 
-const ingredientsSlice = createSlice({
+const burgerIngredientsSlice = createSlice({
     name: 'ingredients',
     initialState: {
         data: [],
@@ -29,4 +29,4 @@ const ingredientsSlice = createSlice({
     }
 });
 
-export const ingredientsReducer = ingredientsSlice.reducer;
+export const burgerIngredientsReducer = burgerIngredientsSlice.reducer;

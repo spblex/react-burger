@@ -9,6 +9,12 @@
     gap: 10px;
 }
 
+.dragging_container {
+    composes: main;
+    outline: solid 2px darkblue;
+    border-radius: 10px;
+}
+
 .item {
     composes: mb-4 ml-4 mr-4 from global;
     display: flex;
@@ -42,6 +48,11 @@
 
 .item_element {
     max-width: -webkit-fill-available;
+}
+
+.empty_element > span {
+    max-width: -webkit-fill-available;
+    display: none;
 }
 
 .ingredients {
