@@ -11,6 +11,7 @@ import {calculateIngredientSum} from "../../../../services/selectors";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import {makeOrder} from "../../../../utils/api-service";
 import {clearOrder} from "../../../../services/order-details";
+import uuid from "react-uuid";
 
 export default function BurgerConstructor () {
     const dispatch = useDispatch();
@@ -48,7 +49,7 @@ export default function BurgerConstructor () {
                 } else {
                     dispatch(addIngredient({
                         position: calcDropPosition(monitor),
-                        ingredient: item.ingredient
+                        ingredient: Object.assign({}, item.ingredient, {uniqueId: uuid()})
                     }));
                 }
             } else {
@@ -104,7 +105,7 @@ export default function BurgerConstructor () {
             <ul className={style.ingredients} ref={nonBunsRef}>
                 {ingredients.map((item, index) => {
                     return (
-                        <li className={style.item} key={index}>
+                        <li className={style.item} key={item.uniqueId}>
                             <BurgerIngredient item={item} index={index}/>
                         </li>
                     );
