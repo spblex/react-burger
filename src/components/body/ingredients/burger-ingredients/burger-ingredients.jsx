@@ -1,71 +1,76 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import style from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import CardSection from "../card-section/card-section";
 import Modal from "../../../dialog/modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
-import ingredientsTypes from "../../../../utils/types";
+import {useDispatch, useSelector} from "react-redux";
+import {selectIngredient} from "../../../../services/ingredient-details";
 
-export default function BurgerIngredients ({ingredients}) {
+
+const SCROLL_OFFSET = 10;
+
+export default function BurgerIngredients () {
+    const {selectedIngredient} = useSelector(store => store.details);
+    const dispatch = useDispatch();
     const [currentTab, setCurrentTab] = useState('buns');
-    const [selectedIngredient, setSelectedIngredient] = useState(null);
+    const bunsRef = useRef(null);
+    const saucesRef = useRef(null);
+    const mainsRef = useRef(null);
 
-    const {buns, sauces, main} = useMemo(() => {
-        return {
-            buns: ingredients.filter(item => item.type === 'bun'),
-            sauces: ingredients.filter(item => item.type === 'sauce'),
-            main: ingredients.filter(item => item.type === 'main')
-        };
-    }, [ingredients]);
 
     const onModalClose = useCallback(() => {
-            setSelectedIngredient(null);
-        }, []
-    );
+        dispatch(selectIngredient(null));
+        }, [dispatch]
+    )
+
+    const scrollToSection = useCallback((ref) => {
+        ref.current?.scrollIntoView({
+            behavior: "smooth"
+        });
+    }, []);
+
+    const onTabClick = useCallback(({tab, ref}) => {
+        setCurrentTab(tab);
+        scrollToSection(ref);
+    }, [scrollToSection]);
+
+    const onSectionScroll = useCallback((e) => {
+        const {top} = e.currentTarget.getBoundingClientRect();
+        [bunsRef, saucesRef, mainsRef].forEach((section) => {
+            const {top: sectionTop, bottom: sectionBottom} = section.current.getBoundingClientRect();
+            if (sectionTop - top - SCROLL_OFFSET <= 0 && sectionBottom - top > 0) {
+                setCurrentTab(section.current.title);
+            }
+        });
+    }, []);
 
     return (
         <div className={style.main}>
             <p className={style.title}>Соберите Бургер</p>
             <div className={style.tab}>
-                <Tab value="buns" active={currentTab === 'buns'} onClick={setCurrentTab}>
+                <Tab value={{tab: "buns", ref: bunsRef}} active={currentTab === 'buns'} onClick={onTabClick}>
                     Булки
                 </Tab>
-                <Tab value="sauces" active={currentTab === 'sauces'} onClick={setCurrentTab}>
+                <Tab value={{tab: "sauces", ref: saucesRef}} active={currentTab === 'sauces'} onClick={onTabClick}>
                     Соусы
                 </Tab>
-                <Tab value="mains" active={currentTab === 'mains'} onClick={setCurrentTab}>
+                <Tab value={{tab: "mains", ref: mainsRef}} active={currentTab === 'mains'} onClick={onTabClick}>
                     Начинки
                 </Tab>
             </div>
-            <section className={style.card_sections}>
-                {
-                    buns.length > 0 && (
-                        <CardSection key='buns' title='Булки' ingredients={buns} onSelectIngredient={setSelectedIngredient}/>
-                    )
-                }
-                {
-                    sauces.length > 0 && (
-                        <CardSection key='sauces' title='Соусы' ingredients={sauces} onSelectIngredient={setSelectedIngredient}/>
-                    )
-                }
-                {
-                    main.length > 0 && (
-                        <CardSection key='mains' title='Начинки' ingredients={main} onSelectIngredient={setSelectedIngredient}/>
-                    )
-                }
+            <section className={style.card_sections} onScroll={onSectionScroll}>
+                <CardSection key='buns' name='buns' title='Булки' ref={bunsRef}/>
+                <CardSection key='sauces' name='sauces' title='Соусы' ref={saucesRef}/>
+                <CardSection key='mains' name='mains' title='Начинки' ref={mainsRef}/>
             </section>
             {
                 selectedIngredient && (
                     <Modal title="Детали ингредиента" onClose={onModalClose}>
-                        <IngredientDetails ingredient={selectedIngredient}/>
+                        <IngredientDetails/>
                     </Modal>
                 )
             }
         </div>
     );
-}
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired).isRequired
 }
