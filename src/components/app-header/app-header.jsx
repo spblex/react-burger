@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './app-header.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {NavLink} from "react-router-dom";
 
 export default function AppHeader() {
     return (
@@ -11,19 +12,19 @@ export default function AppHeader() {
                         <div className={style.button_icon}>
                             <BurgerIcon type="primary"/>
                         </div>
-                        <p className={style.button_text}>Конструктор</p>
+                        <NavLink className={({isActive}) => isActive ? style.activeLink : style.inactiveLink} to='/'>Конструктор</NavLink>
                     </div>
                     <div className={style.button_orders}>
                         <div className={style.button_icon}>
                             <ListIcon type="secondary"/>
                         </div>
-                        <p className={style.button_inactive_text}>Лента заказов</p>
+                        <NavLink className={({isActive}) => isActive ? style.activeLink : style.inactiveLink} to='/profile/orders'>Лента заказов</NavLink>
                     </div>
                     <div className={style.button_settings}>
                         <div className={style.button_icon}>
                             <ProfileIcon type="secondary"/>
                         </div>
-                        <p className={style.button_inactive_text}>Личный кабинет</p>
+                        <NavLink className={({isActive}) => isActive ? style.activeLink : style.inactiveLink} to='/profile/user'>Личный кабинет</NavLink>
                     </div>
                 </nav>
                 <div className={style.logo}>

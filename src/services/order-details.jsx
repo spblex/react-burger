@@ -38,5 +38,5 @@ const orderDetailsSlice = createSlice({
     }
 });
 
-export const orderDetailsSliceReducer = orderDetailsSlice.reducer
+export const orderDetailsReducer = orderDetailsSlice.reducer
 export const {clearOrder} = orderDetailsSlice.actions;

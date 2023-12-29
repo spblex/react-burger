@@ -43,14 +43,20 @@
     composes: ml-5 mr-2 mt-4 mb-4 from global;
 }
 
-.button_text {
+.link {
     composes: text text_type_main-default mr-4 from global;
     align-self: center;
+    text-decoration: none;
 }
 
-.button_inactive_text {
-    composes: button_text;
+.inactiveLink {
+    composes: link;
     composes: text_color_inactive from global;
+}
+
+.activeLink {
+    composes: link;
+    color: white;
 }
 
 .logo {

@@ -1,43 +1,48 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import style from './app.module.css';
+import React from 'react';
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../body/ingredients/burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../body/order/burger-constructor/burger-constructor";
-import {loadIngredients} from "../../utils/api-service";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import {Route, Routes} from 'react-router-dom';
+import Home from "../../pages/home/home";
+import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
+import {ResetPassword} from "../../pages/reset-password/reset-password";
+import {Register} from "../../pages/register/register";
+import {Login} from "../../pages/login/login";
+import Profile from "../../pages/profile/profile";
+import {AuthRoute, UnAuthDependentRoute, UnAuthRoute} from "../../hocs/protected-route-element";
 
 export default function App() {
-    const dispatch = useDispatch();
-    const {loading, error, success} = useSelector(store => store.ingredients);
-
-    useEffect(() => {
-        dispatch(loadIngredients())
-    }, [dispatch]);
-
-    if (loading) {
-        return <h2>Загрузка...</h2>;
-    } else if (error || !success) {
-        return (
-            <>
-                <p>Ошибка получения данных с сервера: {error}</p>
-                <p>Перезагрузите страницу и повторите попытку.</p>
-            </>
-        )
-    }
-
     return (
         <div id="react-modals">
             <AppHeader/>
-            <div className={style.view}>
-                <main className={style.content}>
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients/>
-                        <BurgerConstructor/>
-                    </DndProvider>
-                </main>
-            </div>
+            <Routes>
+                <Route path='/' element={<Home/>}/>
+
+                <Route path='profile/*' element={
+                    <AuthRoute>
+                        <Profile/>
+                    </AuthRoute>
+                }/>
+
+                <Route path='login' element={
+                    <UnAuthRoute>
+                        <Login/>
+                    </UnAuthRoute>
+                }/>
+                <Route path='register' element={
+                    <UnAuthRoute>
+                        <Register/>
+                    </UnAuthRoute>
+                }/>
+                <Route path='forgot-password' element={
+                    <UnAuthRoute>
+                        <ForgotPassword/>
+                    </UnAuthRoute>
+                }/>
+                <Route path='reset-password' element={
+                    <UnAuthDependentRoute pageName='/forgot-password' storeName='password'>
+                        <ResetPassword/>
+                    </UnAuthDependentRoute>
+                }/>
+            </Routes>
         </div>
     )
 }
