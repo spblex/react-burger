@@ -13,7 +13,7 @@ export default function Profile () {
         dispatch(logout({ token: data.refreshToken }))
             .then((result) => {
                 if (!result.error) {
-                    navigate('/', {replace: false});
+                    navigate('/login', {replace: false});
                 }
             });
     }, [dispatch, navigate, data.refreshToken]);

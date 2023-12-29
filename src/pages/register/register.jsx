@@ -5,6 +5,7 @@ import {withForm} from "../../hocs/with-form";
 import {useCallback} from "react";
 import {useDispatch} from "react-redux";
 import {register} from "../../utils/api-service";
+import PropTypes from "prop-types";
 
 const RegisterPage = ({onValueChange, validate, data, error}) => {
     const dispatch = useDispatch();
@@ -65,3 +66,10 @@ const RegisterPage = ({onValueChange, validate, data, error}) => {
 }
 
 export const Register = withForm(RegisterPage, {nickname: '', email: '', password: ''});
+
+RegisterPage.propTypes = {
+    onValueChange: PropTypes.func.isRequired,
+    validate: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    error: PropTypes.object.isRequired
+}

@@ -5,6 +5,7 @@ import {withForm} from "../../hocs/with-form";
 import {useCallback} from "react";
 import {passwordReset} from "../../utils/api-service";
 import {useDispatch} from "react-redux";
+import PropTypes from "prop-types";
 
 const ForgotPasswordPage = ({onValueChange, validate, data, error}) => {
     const dispatch = useDispatch();
@@ -43,3 +44,10 @@ const ForgotPasswordPage = ({onValueChange, validate, data, error}) => {
 }
 
 export const ForgotPassword = withForm(ForgotPasswordPage, {email: ''});
+
+ForgotPasswordPage.propTypes = {
+    onValueChange: PropTypes.func.isRequired,
+    validate: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    error: PropTypes.object.isRequired
+}

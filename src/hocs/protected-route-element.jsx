@@ -2,6 +2,7 @@ import {Navigate, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../utils/cookie";
 import {setAuthData} from "../services/auth";
+import PropTypes from "prop-types";
 
 function ProtectedRouteElement({onlyUnAuth = false, children}) {
     const {isAuth, loading} = useSelector((store) => store.auth);
@@ -53,4 +54,19 @@ export const UnAuthDependentRoute = ({storeName, pageName, children}) => {
     ) : (
         <Navigate to={pageName}/>
     );
+}
+
+ProtectedRouteElement.propTypes = {
+    onlyUnAuth: PropTypes.bool,
+    children: PropTypes.element.isRequired
+}
+
+UnAuthRoute.propTypes = {
+    children: PropTypes.element.isRequired
+}
+
+UnAuthDependentRoute.propTypes = {
+    storeName: PropTypes.string.isRequired,
+    pageName: PropTypes.string.isRequired,
+    children: PropTypes.element.isRequired
 }

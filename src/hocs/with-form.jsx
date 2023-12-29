@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const {useCallback} = require("react");
 const {useState} = require("react");
 
@@ -44,4 +46,9 @@ export const withForm = (WrappedComponent, init) => (props) => {
     return (
         <WrappedComponent onValueChange={onValueChange} validate={validate} data={data} error={error} {...props}/>
     )
+}
+
+withForm.propTypes = {
+    WrappedComponent: PropTypes.element.isRequired,
+    init: PropTypes.object.isRequired
 }
