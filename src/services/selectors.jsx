@@ -33,3 +33,10 @@ export const calculateIngredientSum = createSelector(
         return sum;
     }
 );
+
+export const findIngredient = createSelector(
+      [ingredientsData, ingredientsItem],
+    (ingredients, id) => {
+          return ingredients.find(item => item._id === id);
+    }
+);

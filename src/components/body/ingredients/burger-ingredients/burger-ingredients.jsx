@@ -2,27 +2,15 @@ import React, {useCallback, useRef, useState} from 'react';
 import style from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import CardSection from "../card-section/card-section";
-import Modal from "../../../dialog/modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
-import {selectIngredient} from "../../../../services/ingredient-details";
 
 
 const SCROLL_OFFSET = 10;
 
 export default function BurgerIngredients () {
-    const {selectedIngredient} = useSelector(store => store.details);
-    const dispatch = useDispatch();
     const [currentTab, setCurrentTab] = useState('buns');
     const bunsRef = useRef(null);
     const saucesRef = useRef(null);
     const mainsRef = useRef(null);
-
-
-    const onModalClose = useCallback(() => {
-        dispatch(selectIngredient(null));
-        }, [dispatch]
-    )
 
     const scrollToSection = useCallback((ref) => {
         ref.current?.scrollIntoView({
@@ -64,13 +52,6 @@ export default function BurgerIngredients () {
                 <CardSection key='sauces' name='sauces' title='Соусы' ref={saucesRef}/>
                 <CardSection key='mains' name='mains' title='Начинки' ref={mainsRef}/>
             </section>
-            {
-                selectedIngredient && (
-                    <Modal title="Детали ингредиента" onClose={onModalClose}>
-                        <IngredientDetails/>
-                    </Modal>
-                )
-            }
         </div>
     );
 }

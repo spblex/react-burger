@@ -1,8 +1,17 @@
 import style from './ingredient-details.module.css';
 import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import {findIngredient} from "../../../../services/selectors";
+import NotFound404 from "../../../../pages/not-found-404/not-found-404";
 
 export default function IngredientDetails () {
-    const {selectedIngredient: ingredient} = useSelector(store => store.details);
+    const {id} = useParams();
+    const ingredient = useSelector((state) => findIngredient(state, id));
+    if (!ingredient) {
+        return (
+            <NotFound404/>
+        )
+    }
     return (
         <>
             <img className={style.image} src={ingredient.image_large} alt="Ингредиент."/>
