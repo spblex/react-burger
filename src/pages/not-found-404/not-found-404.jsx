@@ -6,7 +6,7 @@ export default function NotFound404() {
     return (
         <div className={style.main}>
             <img className={style.image} src={image_404} alt="Страница на найдена"/>
-            <p>Вернуться на <Link to='/'>Главную</Link></p>
+            <p className={style.description}>Вернуться на <Link className={style.link} to='/'>Главную</Link></p>
         </div>
     )
 }

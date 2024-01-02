@@ -1,0 +1,30 @@
+.content {
+    composes: mr-15 from global;
+    display: flex;
+    flex-direction: column;
+    margin-left: var(--panel-padding-outside);
+}
+
+.list {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.item {
+    composes: text text_type_main-medium mt-5 from global;
+}
+
+.link {
+    composes: text_color_inactive from global;
+    text-decoration: none;
+}
+
+.activeLink {
+    text-decoration: none;
+    color: white;
+}
+
+.description {
+    composes: text text_type_main-default text_color_inactive pt-20 from global;
+}

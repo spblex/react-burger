@@ -15,6 +15,8 @@ import Modal from "../dialog/modal/modal";
 import IngredientDetails from "../body/ingredients/ingredient-details/ingredient-details";
 import PreLoader from "../body/pre-loader/pre-loader";
 import NotFound404 from "../../pages/not-found-404/not-found-404";
+import UserInfo from "../body/profile/user-info/user-info";
+import ErrorGeneral from "../../pages/error-general/error-general";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -38,10 +40,9 @@ export default function App() {
 
     if (error || !success) {
         return (
-            <>
-                <p>Ошибка получения данных с сервера: {error}</p>
-                <p>Перезагрузите страницу и повторите попытку.</p>
-            </>
+            <div id="react-modals">
+                <ErrorGeneral message={error}/>
+            </div>
         )
     }
 
@@ -52,28 +53,30 @@ export default function App() {
                 <Route path='/' element={<Home/>}/>
                 <Route path='/ingredients/:id' element={<Ingredients/>}/>
 
-                <Route path='profile/*' element={
+                <Route path='/profile/*' element={
                     <AuthRoute>
                         <Profile/>
                     </AuthRoute>
-                }/>
+                }>
+                    <Route path='user' element={<UserInfo/>}/>
+                </Route>
 
-                <Route path='login' element={
+                <Route path='/login' element={
                     <UnAuthRoute>
                         <Login/>
                     </UnAuthRoute>
                 }/>
-                <Route path='register' element={
+                <Route path='/register' element={
                     <UnAuthRoute>
                         <Register/>
                     </UnAuthRoute>
                 }/>
-                <Route path='forgot-password' element={
+                <Route path='/forgot-password' element={
                     <UnAuthRoute>
                         <ForgotPassword/>
                     </UnAuthRoute>
                 }/>
-                <Route path='reset-password' element={
+                <Route path='/reset-password' element={
                     <UnAuthDependentRoute pageName='/forgot-password' storeName='password'>
                         <ResetPassword/>
                     </UnAuthDependentRoute>

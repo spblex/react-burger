@@ -1,8 +1,9 @@
 import {Navigate, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../utils/cookie";
-import {setAuthData} from "../services/auth";
+import {setIsAuth} from "../services/auth";
 import PropTypes from "prop-types";
+import {getUserInfo} from "../utils/api-service";
 
 function ProtectedRouteElement({onlyUnAuth = false, children}) {
     const {isAuth, loading} = useSelector((store) => store.auth);
@@ -14,13 +15,10 @@ function ProtectedRouteElement({onlyUnAuth = false, children}) {
     }
 
     if (!isAuth) {
-        const accessToken = getCookie('accessToken');
         const refreshToken = getCookie('refreshToken');
-        if (accessToken && refreshToken) {
-            dispatch(setAuthData({
-                accessToken: accessToken,
-                refreshToken: refreshToken
-            }));
+        if (refreshToken) {
+            dispatch(setIsAuth(true));
+            dispatch(getUserInfo());
         }
     }
 

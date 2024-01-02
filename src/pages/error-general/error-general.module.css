@@ -8,6 +8,7 @@
 }
 
 .image {
+    composes: pb-20 from global;
     height: 150px;
 }
 

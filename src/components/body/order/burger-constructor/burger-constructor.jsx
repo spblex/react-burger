@@ -12,6 +12,7 @@ import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import {makeOrder} from "../../../../utils/api-service";
 import {clearOrder} from "../../../../services/order-details";
 import uuid from "react-uuid";
+import {useNavigate} from "react-router-dom";
 
 export default function BurgerConstructor () {
     const dispatch = useDispatch();
@@ -20,6 +21,8 @@ export default function BurgerConstructor () {
     const sum = useSelector(calculateIngredientSum);
     const {isModalOpen, openModal, closeModal} = useModal();
     const nonBunsRef = useRef();
+    const navigate = useNavigate();
+    const {isAuth, loading: authLoading} = useSelector((store) => store.auth);
 
     const calcDropPosition = useCallback((monitor) => {
         const {top: containerTop} = nonBunsRef.current?.getBoundingClientRect();
@@ -70,13 +73,17 @@ export default function BurgerConstructor () {
     });
 
     const onOrderClick = useCallback(() => {
-        if (!success && !loading && bun && ingredients.length > 0) {
-            let order = [bun._id];
-            ingredients.forEach((item) => order.push(item._id));
-            order.push(bun._id);
-            dispatch(makeOrder(order));
+        if (isAuth) {
+            if (!success && !loading && bun && ingredients.length > 0) {
+                let order = [bun._id];
+                ingredients.forEach((item) => order.push(item._id));
+                order.push(bun._id);
+                dispatch(makeOrder(order));
+            }
+            openModal();
+        } else if (!authLoading) {
+            navigate('/login', {replace: false});
         }
-        openModal();
     }, [success, loading, dispatch, bun, ingredients, openModal]);
 
     const onCloseModal = useCallback(() => {
