@@ -1,25 +1,13 @@
 import {Navigate, useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getCookie} from "../utils/cookie";
-import {setIsAuth} from "../services/auth";
+import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
-import {getUserInfo} from "../utils/api-service";
 
 function ProtectedRouteElement({onlyUnAuth = false, children}) {
     const {isAuth, loading} = useSelector((store) => store.auth);
     const location = useLocation();
-    const dispatch = useDispatch();
 
     if (loading) {
         return null;
-    }
-
-    if (!isAuth) {
-        const refreshToken = getCookie('refreshToken');
-        if (refreshToken) {
-            dispatch(setIsAuth(true));
-            dispatch(getUserInfo());
-        }
     }
 
     if (isAuth && onlyUnAuth) {

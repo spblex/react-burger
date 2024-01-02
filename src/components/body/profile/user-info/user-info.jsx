@@ -28,7 +28,7 @@ export default function UserInfo() {
         isChanged |= data.email !== user.email;
         isChanged |= data.nickname !== user.name;
         setHasChanges(isChanged);
-    });
+    }, [data, user]);
 
     const onValueChange = useCallback((e) => {
         setData({
@@ -48,7 +48,7 @@ export default function UserInfo() {
         isChanged |= data.email !== user.email;
         isChanged |= data.nickname !== user.name;
         setHasChanges(isChanged);
-    }, [data, error, hasChanges]);
+    }, [data, error, user]);
 
     const onSubmit = useCallback((e) => {
         e.preventDefault();
@@ -64,13 +64,18 @@ export default function UserInfo() {
             }
             dispatch(updateUserInfo(changes)).then(checkChanges);
         }
-    },[data, dispatch, hasChanges]);
+    },[data, dispatch, hasChanges, checkChanges]);
 
     const onCancel = useCallback((e) => {
         e.preventDefault();
-
-
-    },[data]);
+        setData({
+            ...data,
+            nickname: user.name,
+            email: user.email,
+            password: INIT_PASSWORD
+        });
+        setHasChanges(false);
+    },[data, user]);
 
     return (
         <form className={style.form} onSubmit={onSubmit}>

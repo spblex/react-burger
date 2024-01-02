@@ -8,7 +8,7 @@ import {Register} from "../../pages/register/register";
 import {Login} from "../../pages/login/login";
 import Profile from "../../pages/profile/profile";
 import {AuthRoute, UnAuthDependentRoute, UnAuthRoute} from "../../hocs/protected-route-element";
-import {loadIngredients} from "../../utils/api-service";
+import {getUserInfo, loadIngredients} from "../../utils/api-service";
 import {useDispatch, useSelector} from "react-redux";
 import Ingredients from "../../pages/ingredients/ingredients";
 import Modal from "../dialog/modal/modal";
@@ -17,20 +17,30 @@ import PreLoader from "../body/pre-loader/pre-loader";
 import NotFound404 from "../../pages/not-found-404/not-found-404";
 import UserInfo from "../body/profile/user-info/user-info";
 import ErrorGeneral from "../../pages/error-general/error-general";
+import {getCookie} from "../../utils/cookie";
+import {setIsAuth} from "../../services/auth";
 
 export default function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const {loading, error, success} = useSelector(store => store.ingredients);
+    const {isAuth, loading: isAuthLoading} = useSelector((store) => store.auth);
     const [isInit, setIsInit] = useState(false);
 
     useEffect(() => {
         dispatch(loadIngredients());
         setIsInit(true);
-    }, [dispatch, setIsInit]);
+        if (!isAuth && !isAuthLoading) {
+            const refreshToken = getCookie('refreshToken');
+            if (refreshToken) {
+                dispatch(setIsAuth(true));
+                dispatch(getUserInfo());
+            }
+        }
+    }, [dispatch, setIsInit, isAuth, isAuthLoading]);
 
-    if (loading || !isInit) {
+    if (loading || isAuthLoading || !isInit) {
         return (
             <div id="react-modals">
                 <PreLoader/>
