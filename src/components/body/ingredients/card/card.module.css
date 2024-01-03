@@ -3,6 +3,8 @@
     flex-direction: column;
     width: min-content;
     position: relative;
+    text-decoration: none;
+    color: white;
 }
 
 .counter {

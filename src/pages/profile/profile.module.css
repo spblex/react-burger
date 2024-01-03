@@ -1,0 +1,11 @@
+.view {
+    composes: flex_center from global;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: var(--content-width);
+    height: calc(100vh - 120px);
+}

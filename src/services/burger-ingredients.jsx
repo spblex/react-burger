@@ -19,7 +19,7 @@ const burgerIngredientsSlice = createSlice({
             .addCase(loadIngredients.rejected, (state, action) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload;
+                state.error = action.error?.message;
             })
             .addCase(loadIngredients.fulfilled, (state, action) => {
                 state.loading = false;

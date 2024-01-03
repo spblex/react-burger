@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import {createPortal} from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
-import style from "../modal-overlay/modal-overlay.module.css";
+import style from "./modal.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function Modal({children, onClose, title=null}) {

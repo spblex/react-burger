@@ -1,14 +1,14 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import style from './card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
-import {selectIngredient} from "../../../../services/ingredient-details";
+import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {calculateIngredientCount} from "../../../../services/selectors";
 import ingredientsTypes from "../../../../utils/types";
+import {Link, useLocation} from "react-router-dom";
 
 export default function Card ({ingredient}) {
-    const dispatch = useDispatch();
+    const location = useLocation();
     const itemCount = useSelector((state) => calculateIngredientCount(state, ingredient._id));
     const [, dragRef] = useDrag({
         type: 'ingredient',
@@ -19,12 +19,8 @@ export default function Card ({ingredient}) {
         }
     });
 
-    const onClick = useCallback(() => {
-        dispatch(selectIngredient(ingredient));
-    }, [dispatch, ingredient]);
-
     return (
-        <div className={style.main} ref={dragRef} onClick={onClick}>
+        <Link className={style.main} ref={dragRef} to={`/ingredients/${ingredient._id}`} state={{background: location}}>
             { itemCount !== 0 && (
                 <Counter count={itemCount} size="default" extraClass={style.counter}/>
             )}
@@ -34,7 +30,7 @@ export default function Card ({ingredient}) {
                 <CurrencyIcon type="primary" />
             </div>
             <p className={style.name}>{ingredient.name}</p>
-        </div>
+        </Link>
     )
 }
 
