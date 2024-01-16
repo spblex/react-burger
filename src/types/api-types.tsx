@@ -6,18 +6,8 @@ export enum HTTPMethod {
     PATCH = 'PATCH'
 };
 
-export type TOptions = {
-    method: HTTPMethod;
-    mode: string;
-    headers: {
-        'Content-Type': 'application/json';
-        Authorization?: string | null;
-    };
-    body?: any;
-};
-
 export type TTokenData = {
-    token: string | null;
+    readonly token: string | null;
 };
 
 export type TResponse = {
@@ -59,8 +49,8 @@ export type TUserResponse = {
 };
 
 export type TOrderResponse = TResponse & {
-    name: string;
-    order: {
-        number: number;
+    readonly name: string;
+    readonly order: {
+        readonly number: number;
     };
 }

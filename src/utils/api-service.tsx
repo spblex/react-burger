@@ -11,7 +11,6 @@ import {
     TResponse,
     TTokenData,
     TTokenResponse,
-    TUserBaseData,
     TUserData,
     TUserResponse
 } from "../types/api-types";
@@ -115,7 +114,7 @@ export const getUserInfo = requestGet<TUserResponse>(
     true
 );
 
-export const updateUserInfo = requestPatch<TUserResponse, TUserBaseData>(
+export const updateUserInfo = requestPatch<TUserResponse, TUserData>(
     'auth/user/update',
     process.env.REACT_APP_AUTH_USER!,
     true
