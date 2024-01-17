@@ -1,5 +1,4 @@
 import {createSelector} from "@reduxjs/toolkit";
-import {TIngredient} from "../types/stores";
 import {TRootReducer} from "../types/stores";
 
 const ingredientsData = (state: TRootReducer) => state.ingredients.data;
@@ -11,9 +10,9 @@ export const extractIngredientsByType = createSelector(
     [ingredientsData],
     (ingredients) => {
         return {
-            buns: ingredients.filter((item: TIngredient) => item.type === 'bun'),
-            sauces: ingredients.filter((item: TIngredient) => item.type === 'sauce'),
-            mains: ingredients.filter((item: TIngredient) => item.type === 'main')
+            buns: ingredients.filter((item) => item.type === 'bun'),
+            sauces: ingredients.filter((item) => item.type === 'sauce'),
+            mains: ingredients.filter((item) => item.type === 'main')
         }
     }
 );
@@ -24,7 +23,7 @@ export const calculateIngredientCount = createSelector(
         if (bun && bun._id === id) {
             return 2;
         }
-        return ingredients.filter((item: TIngredient) => item._id === id).length;
+        return ingredients.filter((item) => item._id === id).length;
     }
 );
 
