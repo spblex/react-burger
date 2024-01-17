@@ -2,7 +2,7 @@ import style from './forgot-password.module.css'
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {withForm} from "../../hocs/with-form";
-import {FC, SyntheticEvent, useCallback} from "react";
+import {FC, FormEvent, useCallback} from "react";
 import {passwordReset} from "../../utils/api-service";
 import {useDispatch} from "react-redux";
 import {TWrappedComponentProps} from "../../types/props";
@@ -12,7 +12,7 @@ const ForgotPasswordPage: FC<TWrappedComponentProps> = ({onValueChange, validate
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onSubmit = useCallback((e: SyntheticEvent) => {
+    const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
             // @ts-ignore

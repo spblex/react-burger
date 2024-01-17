@@ -1,6 +1,6 @@
 import style from "./user-info.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ChangeEvent, FC, SyntheticEvent, useCallback, useState} from "react";
+import {ChangeEvent, FC, FormEvent, SyntheticEvent, useCallback, useState} from "react";
 import {updateUserInfo} from "../../../../utils/api-service";
 import {useDispatch, useSelector} from "react-redux";
 import {TAuthStore, TRootReducer} from "../../../../types/stores";
@@ -64,7 +64,7 @@ export const UserInfo: FC = () => {
         setHasChanges(isChanged);
     }, [data, error, user]);
 
-    const onSubmit = useCallback((e: SyntheticEvent) => {
+    const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (hasChanges) {

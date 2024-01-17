@@ -1,4 +1,4 @@
-import React, {FC, SyntheticEvent, useCallback, useRef, useState} from 'react';
+import React, {FC, UIEvent, useCallback, useRef, useState} from 'react';
 import style from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {CardSection} from "../card-section/card-section";
@@ -27,7 +27,7 @@ export const BurgerIngredients: FC = () => {
         }
     }, []);
 
-    const onSectionScroll = useCallback((e: SyntheticEvent): void => {
+    const onSectionScroll = useCallback((e: UIEvent<HTMLDivElement>): void => {
         const {top} = e.currentTarget.getBoundingClientRect();
         [bunsRef, saucesRef, mainsRef].forEach((section) => {
             if (section.current) {

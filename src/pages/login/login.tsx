@@ -1,7 +1,7 @@
 import style from './login.module.css'
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {FC, SyntheticEvent, useCallback} from "react";
+import {FC, FormEvent, useCallback} from "react";
 import {withForm} from "../../hocs/with-form";
 import {useDispatch} from "react-redux";
 import {login} from "../../utils/api-service";
@@ -14,7 +14,7 @@ const LoginPage: FC<TWrappedComponentProps> = ({onValueChange, validate, data, e
     const location = useLocation();
     const {from} = location.state || {from: {pathname: '/'}};
 
-    const onSubmit = useCallback((e: SyntheticEvent) => {
+    const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
             // @ts-ignore

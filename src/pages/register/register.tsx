@@ -2,7 +2,7 @@ import style from './register.module.css'
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {withForm} from "../../hocs/with-form";
-import {FC, SyntheticEvent, useCallback} from "react";
+import {FC, FormEvent, useCallback} from "react";
 import {useDispatch} from "react-redux";
 import {register} from "../../utils/api-service";
 import {TWrappedComponentProps} from "../../types/props";
@@ -12,7 +12,7 @@ const RegisterPage: FC<TWrappedComponentProps> = ({onValueChange, validate, data
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onSubmit = useCallback((e: SyntheticEvent) => {
+    const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
             // @ts-ignore
