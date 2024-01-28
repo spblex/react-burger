@@ -1,18 +1,18 @@
 import style from "./navigation.module.css";
 import {Link, NavLink, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {FC, useCallback} from "react";
 import {logout} from "../../../../utils/api-service";
 import {getCookie} from "../../../../utils/cookie";
 import {TResponse} from "../../../../types/api-types";
+import {useAppDispatch} from "../../../../hooks/useAppDispatch";
 
 export const Navigation: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const onLogout = useCallback((): void => {
-        // @ts-ignore
         dispatch(logout({ token: getCookie('refreshToken') }))
+            // @ts-ignore
             .then((result: TResponse) => {
                 if (!result.error) {
                     navigate('/login', {replace: false});

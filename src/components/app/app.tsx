@@ -9,7 +9,6 @@ import {Login} from "../../pages/login/login";
 import {Profile} from "../../pages/profile/profile";
 import {AuthRoute, UnAuthDependentRoute, UnAuthRoute} from "../../hocs/protected-route-element";
 import {getUserInfo, loadIngredients} from "../../utils/api-service";
-import {useDispatch, useSelector} from "react-redux";
 import {Ingredients} from "../../pages/ingredients/ingredients";
 import {Modal} from "../dialog/modal/modal";
 import {IngredientDetails} from "../body/ingredients/ingredient-details/ingredient-details";
@@ -19,25 +18,24 @@ import {UserInfo} from "../body/profile/user-info/user-info";
 import {ErrorGeneral} from "../../pages/error-general/error-general";
 import {getCookie} from "../../utils/cookie";
 import {setIsAuth} from "../../services/auth";
-import {TAuthStore, TBurgerIngredientsStore, TRootReducer} from "../../types/stores";
+import {useAppSelector} from "../../hooks/useAppSelector";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
 
 export const App: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
-    const {loading, error, success} = useSelector<TRootReducer, TBurgerIngredientsStore>(store => store.ingredients);
-    const {isAuth, loading: isAuthLoading} = useSelector<TRootReducer, TAuthStore>((store) => store.auth);
+    const {loading, error, success} = useAppSelector(store => store.ingredients);
+    const {isAuth, loading: isAuthLoading} = useAppSelector((store) => store.auth);
     const [isInit, setIsInit] = useState<boolean>(false);
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(loadIngredients());
         setIsInit(true);
         if (!isAuth && !isAuthLoading) {
             const refreshToken = getCookie('refreshToken');
             if (refreshToken) {
                 dispatch(setIsAuth(true));
-                // @ts-ignore
                 dispatch(getUserInfo());
             }
         }

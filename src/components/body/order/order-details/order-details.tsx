@@ -1,12 +1,11 @@
-import style from './order-details.module.css'
-import doneImage from '../../../../images/done.png'
-import {useSelector} from "react-redux";
+import style from "./order-details.module.css";
+import doneImage from "../../../../images/done.png";
 import {FC, useCallback} from "react";
-import {TBurgerConstructorStore, TOrderDetailsStore, TRootReducer} from "../../../../types/stores";
+import {useAppSelector} from "../../../../hooks/useAppSelector";
 
 export const OrderDetails: FC = () => {
-    const {number, success, error, loading} = useSelector<TRootReducer, TOrderDetailsStore>(store => store.order);
-    const {bun, ingredients} = useSelector<TRootReducer, TBurgerConstructorStore>(store => store.burger);
+    const {number, success, error, loading} = useAppSelector(store => store.order);
+    const {bun, ingredients} = useAppSelector(store => store.burger);
 
     const content = useCallback((): JSX.Element => {
         if (loading) {

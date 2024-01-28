@@ -1,14 +1,13 @@
 import style from './ingredient-details.module.css';
-import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {findIngredient} from "../../../../services/selectors";
 import {NotFound404} from "../../../../pages/not-found-404/not-found-404";
 import {FC} from "react";
-import {TIngredient, TRootReducer} from "../../../../types/stores";
+import {useAppSelector} from "../../../../hooks/useAppSelector";
 
 export const IngredientDetails: FC = () => {
     const {id} = useParams<string>();
-    const ingredient = useSelector<TRootReducer, TIngredient | undefined>((state) => findIngredient(state, id ?? ''));
+    const ingredient = useAppSelector((state) => findIngredient(state, id ?? ''));
     if (!ingredient) {
         return (
             <NotFound404/>

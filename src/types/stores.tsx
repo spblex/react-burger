@@ -16,12 +16,6 @@ export type TIngredient = {
     uniqueId?: string;
 };
 
-export type TIngredientTypes = {
-    buns: Array<TIngredient>;
-    sauces: Array<TIngredient>;
-    mains: Array<TIngredient>;
-};
-
 export type TRootReducer = ReturnType<typeof rootReducer>;
 
 export type TStoreState = {

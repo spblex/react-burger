@@ -1,10 +1,11 @@
 import {Navigate, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {TAuthStore, TRootReducer, TStoreState} from "../types/stores";
+import {TStoreState} from "../types/stores";
 import {TProtectedRouteBaseProps, TProtectedRouteDependentProps, TProtectedRouteElementProps} from "../types/props";
+import {useAppSelector} from "../hooks/useAppSelector";
 
 const ProtectedRouteElement: TProtectedRouteElementProps = ({onlyUnAuth = false, children}) => {
-    const {isAuth, loading} = useSelector<TRootReducer, TAuthStore>((store) => store.auth);
+    const {isAuth, loading} = useAppSelector((store) => store.auth);
     const location = useLocation();
 
     if (loading) {

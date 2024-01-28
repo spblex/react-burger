@@ -1,17 +1,16 @@
 import React, {FC} from 'react';
 import style from './card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {calculateIngredientCount} from "../../../../services/selectors";
 import {Link, useLocation} from "react-router-dom";
 import {TCardProps} from "../../../../types/props";
-import {TRootReducer} from "../../../../types/stores";
 import {TDragObject} from "../../../../types/types";
+import {useAppSelector} from "../../../../hooks/useAppSelector";
 
 export const Card: FC<TCardProps> = ({ingredient}) => {
     const location = useLocation();
-    const itemCount = useSelector<TRootReducer, number>((state) => calculateIngredientCount(state, ingredient._id));
+    const itemCount = useAppSelector((state) => calculateIngredientCount(state, ingredient._id));
 
     const [, dragRef] = useDrag<TDragObject>({
         type: 'ingredient',

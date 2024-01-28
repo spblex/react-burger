@@ -4,7 +4,6 @@ import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-deve
 import {Modal} from "../../../dialog/modal/modal";
 import {OrderDetails} from "../order-details/order-details";
 import {useModal} from "../../../../hooks/useModal";
-import {useDispatch, useSelector} from "react-redux";
 import {DropTargetMonitor, useDrop} from "react-dnd";
 import {addBun, addIngredient, clearIngredients, moveIngredient} from "../../../../services/burger-constructor";
 import {calculateIngredientSum} from "../../../../services/selectors";
@@ -13,8 +12,9 @@ import {makeOrder} from "../../../../utils/api-service";
 import {clearOrder} from "../../../../services/order-details";
 import uuid from "react-uuid";
 import {useNavigate} from "react-router-dom";
-import {TAuthStore, TBurgerConstructorStore, TOrderDetailsStore, TRootReducer} from "../../../../types/stores";
 import {TDragObject} from "../../../../types/types";
+import {useAppSelector} from "../../../../hooks/useAppSelector";
+import {useAppDispatch} from "../../../../hooks/useAppDispatch";
 
 type TCalcDropPosition = (monitor: DropTargetMonitor<TDragObject>) => number;
 type TDropCollectedProps = {
@@ -22,11 +22,11 @@ type TDropCollectedProps = {
 };
 
 export const BurgerConstructor: FC = () => {
-    const dispatch = useDispatch();
-    const {bun, ingredients} = useSelector<TRootReducer, TBurgerConstructorStore>(store => store.burger);
-    const {success, loading} = useSelector<TRootReducer, TOrderDetailsStore>(store => store.order);
-    const {isAuth, loading: authLoading} = useSelector<TRootReducer, TAuthStore>((store) => store.auth);
-    const sum = useSelector<TRootReducer, number>(calculateIngredientSum);
+    const dispatch = useAppDispatch();
+    const {bun, ingredients} = useAppSelector(store => store.burger);
+    const {success, loading} = useAppSelector(store => store.order);
+    const {isAuth, loading: authLoading} = useAppSelector((store) => store.auth);
+    const sum = useAppSelector(calculateIngredientSum);
     const {isModalOpen, openModal, closeModal} = useModal();
     const nonBunsRef = useRef<HTMLUListElement>(null);
     const navigate = useNavigate();
@@ -87,7 +87,6 @@ export const BurgerConstructor: FC = () => {
                 let order: Array<string> = [bun._id];
                 ingredients.forEach((item) => order.push(item._id));
                 order.push(bun._id);
-                // @ts-ignore
                 dispatch(makeOrder({ ingredients: order }));
             }
             openModal();

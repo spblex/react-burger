@@ -4,19 +4,21 @@ import {Link, useNavigate} from "react-router-dom";
 import {withForm} from "../../hocs/with-form";
 import {FC, FormEvent, useCallback} from "react";
 import {passwordReset} from "../../utils/api-service";
-import {useDispatch} from "react-redux";
 import {TWrappedComponentProps} from "../../types/props";
 import {TResponse} from "../../types/api-types";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
 
 const ForgotPasswordPage: FC<TWrappedComponentProps> = ({onValueChange, validate, data, error}) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
-            // @ts-ignore
-            dispatch(passwordReset(data))
+            dispatch(passwordReset({
+                email: data.email
+            }))
+                // @ts-ignore
                 .then((result: TResponse) => {
                     if (!result.error) {
                         navigate('/reset-password', {replace: false});

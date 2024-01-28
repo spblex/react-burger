@@ -1,13 +1,12 @@
 import React, {forwardRef} from 'react';
 import style from './card-section.module.css';
 import {Card} from "../card/card"
-import {useSelector} from "react-redux";
 import {extractIngredientsByType} from "../../../../services/selectors";
 import {TCardSectionProps} from "../../../../types/props";
-import {TIngredientTypes, TRootReducer} from "../../../../types/stores";
+import {useAppSelector} from "../../../../hooks/useAppSelector";
 
 export const CardSection = forwardRef<HTMLDivElement, TCardSectionProps>(({title, name}, ref) => {
-    const {[name]: ingredients} = useSelector<TRootReducer, TIngredientTypes>(extractIngredientsByType);
+    const {[name]: ingredients} = useAppSelector(extractIngredientsByType);
 
     return (
         <div ref={ref} title={name}>
