@@ -41,7 +41,7 @@ const getOptions = (method: HTTPMethod, needAuth: boolean): RequestInit => {
     };
 }
 
-const updateToken = async () => {
+export const updateToken = async () => {
     const token : TTokenData = {token: getCookie('refreshToken') };
     const response = await request<TTokenResponse, TTokenData>(process.env.REACT_APP_AUTH_TOKEN!, HTTPMethod.POST, token, false, false);
     if (response.success) {

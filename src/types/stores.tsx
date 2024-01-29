@@ -50,3 +50,32 @@ export type TAuthStore = Omit<TStoreState, 'success'> & {
     isAuth: boolean;
     user: TUser;
 };
+
+export enum WebsocketStatus {
+    CONNECTING,
+    ONLINE,
+    OFFLINE,
+    ERROR
+}
+
+export type TFeedOrder = {
+    _id: string;
+    ingredients: string[];
+    status: 'done' | 'pending' | 'created';
+    name: 'string';
+    number: number;
+    createdAt?: string;
+    updateAt?: string;
+};
+
+export type TFeedData = {
+    success: boolean;
+    total: number;
+    totalToday: number;
+    orders: Array<TFeedOrder>;
+};
+
+export type TFeedStore = {
+    status: WebsocketStatus;
+    data: TFeedData;
+};
