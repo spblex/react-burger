@@ -16,6 +16,11 @@ export type TIngredient = {
     uniqueId?: string;
 };
 
+export type TOrderIngredient = {
+    count: number;
+    ingredient: TIngredient;
+};
+
 export type TRootReducer = ReturnType<typeof rootReducer>;
 
 export type TStoreState = {
@@ -58,13 +63,25 @@ export enum WebsocketStatus {
     ERROR
 }
 
+export enum TFeedOrderStatus {
+    DONE= 'done',
+    PENDING = 'pending',
+    CREATED = 'created'
+}
+
+export enum TFeedOrderText {
+    DONE= 'Выполнен',
+    PENDING = 'Готовится',
+    CREATED = 'Создан'
+}
+
 export type TFeedOrder = {
     _id: string;
     ingredients: string[];
-    status: 'done' | 'pending' | 'created';
-    name: 'string';
+    status: TFeedOrderStatus;
+    name: string;
     number: number;
-    createdAt?: string;
+    createdAt: string;
     updateAt?: string;
 };
 

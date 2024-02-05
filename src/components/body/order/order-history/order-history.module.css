@@ -1,0 +1,55 @@
+.container {
+    composes: pb-10 pl-10 pr-10 from global;
+    max-width: 800px;
+}
+
+.number {
+    composes: text text_type_digits-default pt-15 pl-10 pr-10 from global;
+    width: 100%;
+}
+
+.name {
+    composes: text text_type_main-medium pt-10 from global;
+}
+
+.status {
+    composes: text text_type_main-small pt-3 pb-5 from global;
+}
+
+.status_done {
+    composes: status;
+    color: #00CCCC;
+}
+
+.status_not_done {
+    composes: status;
+    color: white;
+}
+
+.list {
+    composes: pt-6 from global;
+    max-height: 340px;
+
+    composes: custom-scroll from global;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.total {
+    composes: pt-10 from global;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.date {
+    composes: text text_type_main-small text_color_inactive from global;
+}
+.price_block {
+    display: flex;
+}
+
+.price {
+    composes: text text_type_digits-default pr-2 from global;
+}

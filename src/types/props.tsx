@@ -1,4 +1,4 @@
-import {TIngredient} from "./stores";
+import {TFeedOrder, TIngredient, TOrderIngredient} from "./stores";
 import {ChangeEvent, PropsWithChildren, ReactElement} from "react";
 import {ModalOverlay} from "../components/dialog/modal-overlay/modal-overlay";
 import {TKeyValue} from "./types";
@@ -21,12 +21,8 @@ export type TErrorGeneral = {
     readonly message: string;
 };
 
-export type TModalOverlayProps = PropsWithChildren & {
+export type TModalProps = PropsWithChildren & {
     readonly onClose: () => void;
-}
-
-export type TModalProps = TModalOverlayProps & {
-    readonly title?: string;
 }
 
 export type TUseModal = {
@@ -66,3 +62,15 @@ export type TProtectedRouteDependentProps = (
     storeName: string,
     pageName: string
 ) => typeof children | any;
+
+export type TOrderHistoryProps = {
+    readonly personal: boolean;
+};
+
+export type TOrderHistoryIngredientProps = {
+    readonly item: TOrderIngredient;
+};
+
+export type TOrderListItemProps = {
+    readonly order: TFeedOrder;
+};

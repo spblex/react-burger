@@ -1,0 +1,86 @@
+.view {
+    composes: pl-2 from global;
+    display: flex;
+    flex-direction: column;
+    width: var(--content-width);
+    height: calc(100vh - 120px);
+}
+
+.header {
+    composes: text text_type_main-large ml-4 mt-10 mb-4 from global;
+}
+
+.panels {
+    composes: pb-4 from global;
+    display: flex;
+    height: 100%;
+}
+
+.panel {
+    display: flex;
+    width: var(--panel-width);
+    height: 100%;
+}
+
+.panel_left {
+    composes: panel;
+    composes: pr-4 from global;
+}
+
+.panel_right {
+    composes: panel;
+    composes: pl-10 from global;
+    display: flex;
+    flex-direction: column;
+}
+
+.section {
+    composes: mb-15 from global;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.section_inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.column {
+    columns: 2;
+    width: 280px;
+    height: 214px;
+}
+
+.column_ready{
+    composes: mr-9 from global;
+    composes: column;
+}
+
+.column_cooking {
+    composes: column;
+}
+
+.header_text {
+    composes: text text_type_main-medium mb-6 from global;
+}
+
+.count {
+    composes: text text_type_digits-large mb-15 from global;
+}
+
+.order_number {
+    composes: text text_type_digits-default mb-2 from global;
+    text-decoration: none;
+}
+
+.order_number_ready {
+    composes: order_number;
+    color: #00CCCC;
+}
+
+.order_number_cooking {
+    composes: order_number;
+    color: white;
+}

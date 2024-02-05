@@ -1,3 +1,9 @@
+.title_text {
+    composes: text text_type_main-large pl-10 pr-10 from global;
+    width: 100%;
+    padding-top: 50px;
+}
+
 .image {
     composes: mb-4 mr-25 ml-25 from global;
 }

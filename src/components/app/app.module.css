@@ -1,0 +1,3 @@
+.view {
+    composes: flex_center from global;
+}

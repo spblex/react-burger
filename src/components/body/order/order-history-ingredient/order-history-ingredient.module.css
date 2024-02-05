@@ -1,0 +1,39 @@
+.container {
+    composes: pt-2 pb-2 from global;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.image_container {
+    width: 64px;
+    height: 64px;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background: linear-gradient(black, black) padding-box, linear-gradient(to right, rgba(76, 76, 255, 1), rgba(128, 26, 178, 1)) border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 112px;
+    height: 56px;
+    object-fit: cover;
+}
+
+.name {
+    composes: text text_type_main-default pr-4 pl-4 from global;
+    justify-self: flex-start;
+}
+
+.price {
+    composes: text pr-6 from global;
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.total {
+    composes: text text_type_main-default pr-2 pl-4 from global;
+}

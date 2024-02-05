@@ -1,6 +1,6 @@
 import {createSlice, isAnyOf} from "@reduxjs/toolkit";
-import {wsClose, wsConnect, wsConnecting, wsDisconnect, wsError, wsMessage, wsOpen} from "../types/ws-actions";
 import {TFeedData, TFeedStore, WebsocketStatus} from "../types/stores";
+import {wsClose, wsConnect, wsConnecting, wsDisconnect, wsError, wsMessage, wsOpen} from "./ws-actions";
 
 const initData: TFeedData = {
     success: false,
@@ -29,10 +29,12 @@ const feedSlice = createSlice({
             })
             .addCase(wsMessage, (state, action) => {
                 state.status = WebsocketStatus.ONLINE;
-                state.data = action.payload ?? initData;
+                if (action.payload) {
+                    state.data = action.payload;
+                }
             })
             .addMatcher(isAnyOf(wsConnect, wsConnecting), (state) => {
-                state.status = WebsocketStatus.CONNECTING
+                state.status = WebsocketStatus.CONNECTING;
                 state.data = initData;
             })
             .addMatcher(isAnyOf(wsClose, wsDisconnect), (state) => {

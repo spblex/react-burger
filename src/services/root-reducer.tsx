@@ -12,5 +12,5 @@ export const rootReducer = combineReducers({
     order: orderDetailsReducer,
     auth: authReducer,
     password: passwordReducer,
-    feedPublic: feedPublicReducer
+    feed: feedPublicReducer
 })

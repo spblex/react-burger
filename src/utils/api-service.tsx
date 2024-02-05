@@ -17,6 +17,7 @@ import {
     TUserLoginData,
     TUserResponse
 } from "../types/api-types";
+import {TFeedData} from "../types/stores";
 
 function getResponse <T>(res: Response): Promise<T> {
     if (res.ok) {
@@ -83,6 +84,15 @@ export const makeOrder = requestPost<TOrderResponse, TOrderData>(
     'order/make',
     process.env.REACT_APP_ORDER_URI!,
     true
+);
+
+export const getOrder = createAsyncThunk<TFeedData, number>(
+    'order/get',
+        (payload) => {
+            return request<TFeedData>(
+                process.env.REACT_APP_ORDER_URI! + '/' + payload,
+                HTTPMethod.GET);
+        }
 );
 
 export const login = requestPost<TLoginResponse, TUserLoginData>(

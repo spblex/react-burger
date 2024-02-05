@@ -21,7 +21,7 @@ export const AppHeader: FC = () => {
                         <div className={style.button_icon}>
                             <ListIcon type="secondary"/>
                         </div>
-                        <NavLink className={({isActive}) => isActive ? style.activeLink : style.inactiveLink} to='/profile/orders'>Лента заказов</NavLink>
+                        <NavLink className={({isActive}) => isActive ? style.activeLink : style.inactiveLink} to='/feed'>Лента заказов</NavLink>
                     </div>
                     <div className={style.button_settings}>
                         <div className={style.button_icon}>

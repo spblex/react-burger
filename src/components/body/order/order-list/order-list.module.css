@@ -1,0 +1,31 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.view {
+    composes: custom-scroll from global;
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.view::-webkit-scrollbar-button:end:increment {
+    height: 40px;
+}
+
+.view::-webkit-scrollbar-button:start:increment {
+    height: 40px;
+}
+
+.link {
+    composes: mt-6 mb-2 ml-4 mr-2 from global;
+    flex-direction: column;
+    width: min-content;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}

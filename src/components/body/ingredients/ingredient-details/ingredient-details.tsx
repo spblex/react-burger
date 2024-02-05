@@ -15,6 +15,7 @@ export const IngredientDetails: FC = () => {
     }
     return (
         <>
+            <p className={style.title_text}>Детали ингридиента</p>
             <img className={style.image} src={ingredient.image_large} alt="Ингредиент."/>
             <p className={style.name}>{ingredient.name}</p>
             <div className={style.data}>
