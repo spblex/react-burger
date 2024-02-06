@@ -14,7 +14,9 @@ root.render(
   <React.StrictMode>
       <BrowserRouter>
           <Provider store={store}>
-            <App />
+              <div id="react-modals">
+                  <App />
+              </div>
           </Provider>
       </BrowserRouter>
   </React.StrictMode>

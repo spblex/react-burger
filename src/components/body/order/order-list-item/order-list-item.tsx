@@ -28,9 +28,9 @@ export const OrderListItem: FC<TOrderListItemProps> = ({order}) => {
                                 left: `${(items.length - index - 1) * 50}px`
                             }}>
                                 {
-                                    index === 0 && ingredients.length > 6 && (
+                                    (index === 0 && ingredients.length > 6 && (
                                         <p className={style.image_number}>+{ingredients.length - 5}</p>
-                                    )
+                                    ))
                                     || (
                                         <img className={style.image} src={ingredient.image_mobile} alt={ingredient.name}/>
                                     )

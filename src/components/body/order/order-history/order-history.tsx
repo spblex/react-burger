@@ -28,8 +28,10 @@ export const OrderHistory: FC<TOrderHistoryProps> = ({personal}) => {
             setIsLoading(true);
             dispatch(getOrder(number))
                 .then((response) => {
-                     const result = (response.payload as TFeedData).orders.find(item => item.number === number) ?? null;
-                     setOrder(result);
+                    if (response.payload) {
+                        const result = (response.payload as TFeedData).orders.find(item => item.number === number) ?? null;
+                        setOrder(result);
+                    }
                     setIsLoading(false);
                 });
         }

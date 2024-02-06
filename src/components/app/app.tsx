@@ -47,23 +47,19 @@ export const App: FC = () => {
 
     if (loading || isAuthLoading || !isInit) {
         return (
-            <div id="react-modals">
-                <PreLoader/>
-            </div>
+            <PreLoader/>
         )
     }
 
     if (error || !success) {
         const message = error ?? "Что-то пошло не так..";
         return (
-            <div id="react-modals">
-                <ErrorGeneral message={message}/>
-            </div>
+            <ErrorGeneral message={message}/>
         )
     }
 
     return (
-        <div id="react-modals">
+        <>
             <AppHeader/>
             <div className={style.view}>
                 <Routes location={location.state?.background || location}>
@@ -102,7 +98,7 @@ export const App: FC = () => {
                         </UnAuthRoute>
                     }/>
                     <Route path='/reset-password' element={
-                        <UnAuthDependentRoute pageName='/forgot-password' storeName='password'>
+                        <UnAuthDependentRoute pageName='/forgot-password'>
                             <ResetPassword/>
                         </UnAuthDependentRoute>
                     }/>
@@ -134,6 +130,6 @@ export const App: FC = () => {
                     </Routes>
                 )
             }
-        </div>
+        </>
     )
 }

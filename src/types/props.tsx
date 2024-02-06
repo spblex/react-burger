@@ -1,6 +1,5 @@
-import {TFeedOrder, TIngredient, TOrderIngredient} from "./stores";
-import {ChangeEvent, PropsWithChildren, ReactElement} from "react";
-import {ModalOverlay} from "../components/dialog/modal-overlay/modal-overlay";
+import {TFeedOrder, TIngredient, TOrderIngredient, TRootReducer} from "./stores";
+import {ChangeEvent, PropsWithChildren} from "react";
 import {TKeyValue} from "./types";
 
 export type TCardSectionProps = {
@@ -59,7 +58,6 @@ export type TProtectedRouteElementProps = TProtectedRouteBaseProps & {
 
 export type TProtectedRouteDependentProps = (
     children: any,
-    storeName: string,
     pageName: string
 ) => typeof children | any;
 
