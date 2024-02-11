@@ -11,16 +11,19 @@ import {
     TResponse,
     TTokenData,
     TTokenResponse,
+    TUserBaseData,
     TUserData,
+    TUserEmail,
+    TUserLoginData,
     TUserResponse
 } from "../types/api-types";
-import {TUser} from "../types/stores";
+import {TFeedData} from "../types/stores";
 
 function getResponse <T>(res: Response): Promise<T> {
     if (res.ok) {
         return res.json();
     }
-    return Promise.reject(`Ошибка ${res.status}`);
+    return Promise.reject<T>(`Ошибка ${res.status}`);
 }
 
 const getOptions = (method: HTTPMethod, needAuth: boolean): RequestInit => {
@@ -39,7 +42,7 @@ const getOptions = (method: HTTPMethod, needAuth: boolean): RequestInit => {
     };
 }
 
-const updateToken = async () => {
+export const updateToken = async () => {
     const token : TTokenData = {token: getCookie('refreshToken') };
     const response = await request<TTokenResponse, TTokenData>(process.env.REACT_APP_AUTH_TOKEN!, HTTPMethod.POST, token, false, false);
     if (response.success) {
@@ -58,13 +61,13 @@ const request = async <R, T = void>(url: string, method: HTTPMethod, data: T | n
         await updateToken();
         return await request(url, method, data, needAuth, false);
     }
-    return getResponse(response);
+    return getResponse<R>(response);
 }
 
 const createRequest = <R, T = void>(prefix: string, url: string, method: HTTPMethod, needAuth = false) => createAsyncThunk<R, T>(
     prefix,
-    async (payload) => {
-        return await request<R, T>(url, method, payload, needAuth);
+     (payload) => {
+        return  request<R, T>(url, method, payload, needAuth);
     }
 )
 
@@ -83,7 +86,16 @@ export const makeOrder = requestPost<TOrderResponse, TOrderData>(
     true
 );
 
-export const login = requestPost<TLoginResponse, TUser>(
+export const getOrder = createAsyncThunk<TFeedData, number>(
+    'order/get',
+        (payload) => {
+            return request<TFeedData>(
+                process.env.REACT_APP_ORDER_URI! + '/' + payload,
+                HTTPMethod.GET);
+        }
+);
+
+export const login = requestPost<TLoginResponse, TUserLoginData>(
     'auth/login',
     process.env.REACT_APP_AUTH_LOGIN!
 );
@@ -98,7 +110,7 @@ export const register = requestPost<TRegisterResponse, TUserData>(
     process.env.REACT_APP_AUTH_REGISTER!
 );
 
-export const passwordReset = requestPost<TResponse, TUserData>(
+export const passwordReset = requestPost<TResponse, TUserEmail>(
     'password/reset',
     process.env.REACT_APP_AUTH_PASSWORD_RESET!
 );
@@ -114,7 +126,7 @@ export const getUserInfo = requestGet<TUserResponse>(
     true
 );
 
-export const updateUserInfo = requestPatch<TUserResponse, TUserData>(
+export const updateUserInfo = requestPatch<TUserResponse, TUserBaseData>(
     'auth/user/update',
     process.env.REACT_APP_AUTH_USER!,
     true

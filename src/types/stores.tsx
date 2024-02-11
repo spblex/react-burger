@@ -16,10 +16,9 @@ export type TIngredient = {
     uniqueId?: string;
 };
 
-export type TIngredientTypes = {
-    buns: Array<TIngredient>;
-    sauces: Array<TIngredient>;
-    mains: Array<TIngredient>;
+export type TOrderIngredient = {
+    count: number;
+    ingredient: TIngredient;
 };
 
 export type TRootReducer = ReturnType<typeof rootReducer>;
@@ -55,4 +54,45 @@ export type TUser = {
 export type TAuthStore = Omit<TStoreState, 'success'> & {
     isAuth: boolean;
     user: TUser;
+};
+
+export enum WebsocketStatus {
+    CONNECTING,
+    ONLINE,
+    OFFLINE,
+    ERROR
+}
+
+export enum TFeedOrderStatus {
+    DONE= 'done',
+    PENDING = 'pending',
+    CREATED = 'created'
+}
+
+export enum TFeedOrderText {
+    DONE= 'Выполнен',
+    PENDING = 'Готовится',
+    CREATED = 'Создан'
+}
+
+export type TFeedOrder = {
+    _id: string;
+    ingredients: string[];
+    status: TFeedOrderStatus;
+    name: string;
+    number: number;
+    createdAt: string;
+    updateAt?: string;
+};
+
+export type TFeedData = {
+    success: boolean;
+    total: number;
+    totalToday: number;
+    orders: Array<TFeedOrder>;
+};
+
+export type TFeedStore = {
+    status: WebsocketStatus;
+    data: TFeedData;
 };

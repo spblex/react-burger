@@ -2,14 +2,14 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import style from "./burger-ingredient.module.css";
 import React, {FC, useCallback} from "react";
 import {deleteIngredient} from "../../../../services/burger-constructor";
-import {useDispatch} from "react-redux";
 import {useDrag} from "react-dnd";
 import {TBurgerIngredientProps} from "../../../../types/props";
 import {TDragObject} from "../../../../types/types";
+import {useAppDispatch} from "../../../../hooks/useAppDispatch";
 
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = ({item, index}) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const deleteCard = useCallback((index: number): void => {
         dispatch(deleteIngredient({index: index}));

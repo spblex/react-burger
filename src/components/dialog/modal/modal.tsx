@@ -5,7 +5,7 @@ import style from "./modal.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TModalProps} from "../../../types/props";
 
-export const Modal: FC<TModalProps> = ({children, onClose, title=null}) => {
+export const Modal: FC<TModalProps> = ({children, onClose}) => {
 
     const modalRoot = document.getElementById("react-modals");
 
@@ -32,8 +32,7 @@ export const Modal: FC<TModalProps> = ({children, onClose, title=null}) => {
         (
             <ModalOverlay onClose={onClose}>
                 <div className={style.children} onClick={onChildrenClick}>
-                    <div className={style.title_container}>
-                        <p className={style.title_text}>{title}</p>
+                    <div className={style.close_icon}>
                         <CloseIcon type="primary" onClick={onClose}/>
                     </div>
                     {children}

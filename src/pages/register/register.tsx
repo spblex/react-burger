@@ -3,24 +3,24 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import {Link, useNavigate} from "react-router-dom";
 import {withForm} from "../../hocs/with-form";
 import {FC, FormEvent, useCallback} from "react";
-import {useDispatch} from "react-redux";
 import {register} from "../../utils/api-service";
 import {TWrappedComponentProps} from "../../types/props";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {TResponse} from "../../types/api-types";
 
 const RegisterPage: FC<TWrappedComponentProps> = ({onValueChange, validate, data, error}) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
-            // @ts-ignore
             dispatch(register({
                 name: data.nickname,
                 email: data.email,
                 password: data.password
             }))
+                // @ts-ignore
                 .then((result: TResponse) => {
                     if (!result.error) {
                         navigate('/', {replace: true});

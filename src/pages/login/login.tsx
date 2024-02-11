@@ -3,13 +3,12 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {FC, FormEvent, useCallback} from "react";
 import {withForm} from "../../hocs/with-form";
-import {useDispatch} from "react-redux";
 import {login} from "../../utils/api-service";
 import {TWrappedComponentProps} from "../../types/props";
-import {TResponse} from "../../types/api-types";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
 
 const LoginPage: FC<TWrappedComponentProps> = ({onValueChange, validate, data, error}) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const {from} = location.state || {from: {pathname: '/'}};
@@ -17,13 +16,10 @@ const LoginPage: FC<TWrappedComponentProps> = ({onValueChange, validate, data, e
     const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
-            // @ts-ignore
-            dispatch(login(data))
-                .then((result: TResponse) => {
-                    if (!result.error) {
-                        navigate(from, {replace: true});
-                    }
-                });
+            dispatch(login({
+                email: data.email,
+                password: data.password
+            })).then(() => navigate(from, {replace: true}));
         }
     },[validate, data, dispatch, from, navigate])
 

@@ -1,10 +1,9 @@
 import {Navigate, useLocation} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {TAuthStore, TRootReducer, TStoreState} from "../types/stores";
 import {TProtectedRouteBaseProps, TProtectedRouteDependentProps, TProtectedRouteElementProps} from "../types/props";
+import {useAppSelector} from "../hooks/useAppSelector";
 
 const ProtectedRouteElement: TProtectedRouteElementProps = ({onlyUnAuth = false, children}) => {
-    const {isAuth, loading} = useSelector<TRootReducer, TAuthStore>((store) => store.auth);
+    const {isAuth, loading} = useAppSelector((store) => store.auth);
     const location = useLocation();
 
     if (loading) {
@@ -31,8 +30,8 @@ export const UnAuthRoute: TProtectedRouteBaseProps = ({children}) => (
     </ProtectedRouteElement>
 );
 
-export const UnAuthDependentRoute: TProtectedRouteDependentProps = ({storeName, pageName, children}) => {
-    const {loading, success} = useSelector<Array<TStoreState>, TStoreState>((store) => store[storeName])
+export const UnAuthDependentRoute: TProtectedRouteDependentProps = ({pageName, children}) => {
+    const {loading, success} = useAppSelector(store => store.password)
 
     return !loading && success ? (
         <ProtectedRouteElement onlyUnAuth={true}>

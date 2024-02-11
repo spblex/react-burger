@@ -1,0 +1,76 @@
+.view {
+    composes: mt-2 mb-2 mr-2 pt-6 pb-6 pr-6 pl-6 from global;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: rgba(28, 28, 33, 1);
+}
+
+.number_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.number {
+    composes: text text_type_digits-default from global;
+}
+
+.date {
+    composes: text text_type_main-small text_color_inactive from global;
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.name {
+    composes: text text_type_main-medium mt-6 mb-6 from global;
+}
+
+.list_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.list {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+    height: 64px;
+}
+
+.image_container {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background: linear-gradient(black, black) padding-box, linear-gradient(to right, rgba(76, 76, 255, 1), rgba(128, 26, 178, 1)) border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 112px;
+    height: 56px;
+    object-fit: cover;
+}
+
+.image_number {
+    composes: text text_type_digits-default from global;
+}
+
+.price {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.total {
+    composes: text text_type_main-medium pr-2 pl-4 from global;
+}

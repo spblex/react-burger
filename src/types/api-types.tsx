@@ -4,7 +4,7 @@ export enum HTTPMethod {
     GET = 'GET',
     POST = 'POST',
     PATCH = 'PATCH'
-};
+}
 
 export type TTokenData = {
     readonly token: string | null;
@@ -31,20 +31,25 @@ export type TOrderData = {
     readonly ingredients: Array<string>;
 };
 
-export type TUserBaseData = {
+export type TUserEmail = {
+    readonly email: string
+};
+
+export type TUserPassword = {
+    readonly password: string;
+};
+
+export type TUserBaseData = TUserEmail & {
     readonly name: string;
-    readonly email: string;
+    readonly password?: string;
 };
 
-export type TUserData = TUserBaseData & {
-    readonly password: string;
-};
+export type TUserLoginData = TUserEmail & TUserPassword;
+export type TUserData = TUserBaseData & TUserPassword;
 
-export type TPasswordResetData = TTokenData & {
-    readonly password: string;
-};
+export type TPasswordResetData = TUserPassword & TTokenData;
 
-export type TUserResponse = {
+export type TUserResponse =  TResponse & {
     readonly user: TUser;
 };
 
@@ -53,4 +58,4 @@ export type TOrderResponse = TResponse & {
     readonly order: {
         readonly number: number;
     };
-}
+};

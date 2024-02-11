@@ -2,34 +2,34 @@ import style from "./user-info.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ChangeEvent, FC, FormEvent, SyntheticEvent, useCallback, useState} from "react";
 import {updateUserInfo} from "../../../../utils/api-service";
-import {useDispatch, useSelector} from "react-redux";
-import {TAuthStore, TRootReducer} from "../../../../types/stores";
-import {TKeyValue} from "../../../../types/types";
+import {useAppSelector} from "../../../../hooks/useAppSelector";
+import {useAppDispatch} from "../../../../hooks/useAppDispatch";
+import {TUserBaseData} from "../../../../types/api-types";
 
 const INIT_PASSWORD = '';
 
-type TUserData = {
+type TData = {
     nickname: string,
     email: string,
     password: string
 };
 
-type TUserState = {
+type TState = {
     nickname: boolean,
     email: boolean,
     password: boolean
 };
 
 export const UserInfo: FC = () => {
-    const dispatch = useDispatch();
-    const {user} = useSelector<TRootReducer, TAuthStore>(store => store.auth);
-    const [data, setData] = useState<TUserData>({
+    const dispatch = useAppDispatch();
+    const {user} = useAppSelector(store => store.auth);
+    const [data, setData] = useState<TData>({
         nickname: user.name,
         email: user.email,
         password: INIT_PASSWORD
     });
 
-    const [error, setError] = useState<TUserState>({
+    const [error, setError] = useState<TState>({
         nickname: false,
         email: false,
         password: false
@@ -68,15 +68,12 @@ export const UserInfo: FC = () => {
         e.preventDefault();
 
         if (hasChanges) {
-            let changes: TKeyValue<string> = {
+            let changes: TUserBaseData = {
                 name: data.nickname,
-                email: data.email
+                email: data.email,
+                password: data.password !== "" ? data.password : undefined
             };
 
-            if (data.password !== INIT_PASSWORD) {
-                changes.password = data.password;
-            }
-            // @ts-ignore
             dispatch(updateUserInfo(changes)).then(checkChanges);
         }
     },[data, dispatch, hasChanges, checkChanges]);
