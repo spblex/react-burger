@@ -8,7 +8,7 @@ import {Register} from "../../pages/register/register";
 import {Login} from "../../pages/login/login";
 import {Profile} from "../../pages/profile/profile";
 import {AuthRoute, UnAuthDependentRoute, UnAuthRoute} from "../../hocs/protected-route-element";
-import {getUserInfo, loadIngredients} from "../../utils/api-service";
+import {getUserInfo, loadIngredients, updateToken} from "../../utils/api-service";
 import {Ingredients} from "../../pages/ingredients/ingredients";
 import {Modal} from "../dialog/modal/modal";
 import {IngredientDetails} from "../body/ingredients/ingredient-details/ingredient-details";
@@ -35,13 +35,29 @@ export const App: FC = () => {
 
     useEffect(() => {
         dispatch(loadIngredients());
-        setIsInit(true);
         if (!isAuth && !isAuthLoading) {
-            const accessToken = getCookie('refreshToken');
+            const accessToken = getCookie('accessToken');
+            const refreshToken = getCookie('refreshToken');
+
             if (accessToken) {
                 dispatch(setIsAuth(true));
                 dispatch(getUserInfo());
+            } else if (refreshToken) {
+                updateToken()
+                    .then(() => {
+                        dispatch(setIsAuth(true));
+                        dispatch(getUserInfo());
+                        setIsInit(true);
+                    })
+                    .catch(() => {
+                        dispatch(setIsAuth(false));
+                        setIsInit(true);
+                    });
+            } else {
+                setIsInit(true);
             }
+        } else {
+            setIsInit(true);
         }
     }, [dispatch, setIsInit, isAuth, isAuthLoading]);
 
