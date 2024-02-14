@@ -22,7 +22,7 @@ export const Card: FC<TCardProps> = ({ingredient}) => {
     });
 
     return (
-        <Link className={style.main} ref={dragRef} to={`/ingredients/${ingredient._id}`} state={{background: location}}>
+        <Link className={style.main} ref={dragRef} to={`/ingredients/${ingredient._id}`} state={{background: location}} data-test={`ingredient-${ingredient.type}`}>
             { itemCount !== 0 && (
                 <Counter count={itemCount} size="default" extraClass={style.counter}/>
             )}

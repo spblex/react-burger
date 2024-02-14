@@ -44,7 +44,7 @@ export const OrderDetails: FC = () => {
 
         return (
             <>
-                <p className={style.identifier_number}>{number}</p>
+                <p className={style.identifier_number} data-test="order-number">{number}</p>
                 <p className={style.identifier_text}>идентификатор заказа</p>
                 <img className={style.image} src={doneImage} alt="Заказ оформлен."/>
                 <p className={style.readiness_text}>Ваш заказ начали готовить</p>
