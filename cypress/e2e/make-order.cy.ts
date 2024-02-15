@@ -17,7 +17,7 @@ describe('make order', () => {
     cy.intercept("GET", "api/ingredients", { fixture: "ingredients" });
     cy.intercept("POST", "api/auth/login", { fixture: "login" });
 
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   })
 
   it('make order', () => {
@@ -41,7 +41,8 @@ describe('make order', () => {
 
     // Логинимся
     cy.location().should((location) => {
-      expect(location.pathname).to.eq("/login");
+      console.log(location.hash);
+      expect(location.hash).to.eq("#/login");
     });
 
     cy.get(userEmail).type("a@b.c");
