@@ -41,7 +41,6 @@ describe('make order', () => {
 
     // Логинимся
     cy.location().should((location) => {
-      console.log(location.hash);
       expect(location.hash).to.eq("#/login");
     });
 
