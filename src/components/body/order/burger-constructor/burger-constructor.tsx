@@ -104,7 +104,7 @@ export const BurgerConstructor: FC = () => {
     }, [success, closeModal, dispatch]);
 
     return (
-        <div className={isHover ? style.dragging_container : style.main} ref={dropTarget}>
+        <div className={isHover ? style.dragging_container : style.main} ref={dropTarget} data-test="burger-constructor">
             <div className={style.top_container}>
 
             </div>

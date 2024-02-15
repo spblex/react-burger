@@ -31,9 +31,9 @@ export const Modal: FC<TModalProps> = ({children, onClose}) => {
     return modalRoot ? createPortal(
         (
             <ModalOverlay onClose={onClose}>
-                <div className={style.children} onClick={onChildrenClick}>
-                    <div className={style.close_icon}>
-                        <CloseIcon type="primary" onClick={onClose}/>
+                <div className={style.children} onClick={onChildrenClick} data-test="modal">
+                    <div className={style.close_icon} onClick={onClose} data-test="close-button">
+                        <CloseIcon type="primary"/>
                     </div>
                     {children}
                 </div>

@@ -19,7 +19,11 @@ const LoginPage: FC<TWrappedComponentProps> = ({onValueChange, validate, data, e
             dispatch(login({
                 email: data.email,
                 password: data.password
-            })).then(() => navigate(from, {replace: true}));
+            })).then((result) => {
+                if (result.payload !== undefined) {
+                    navigate(from, {replace: true});
+                }
+            });
         }
     },[validate, data, dispatch, from, navigate])
 

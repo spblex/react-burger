@@ -43,4 +43,4 @@ const feedSlice = createSlice({
     }
 });
 
-export const feedPublicReducer = feedSlice.reducer;
+export const feedReducer = feedSlice.reducer;

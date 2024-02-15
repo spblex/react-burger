@@ -40,7 +40,7 @@ export const BurgerIngredients: FC = () => {
     }, []);
 
     return (
-        <div className={style.main}>
+        <div className={style.main} data-test='burger-ingredients'>
             <p className={style.title}>Соберите Бургер</p>
             <div className={style.tab}>
                 <Tab value='buns' active={currentTab === 'buns'} onClick={onTabClick}>
