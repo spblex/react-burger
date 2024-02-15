@@ -10,7 +10,7 @@
 }
 
 .status_text {
-    composes: text text_type_main-large mr-25 ml-25 from global;
+    composes: text text_type_main-large mr-25 ml-25 mt-15 from global;
 }
 
 .identifier_text {
